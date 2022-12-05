@@ -53,8 +53,8 @@ if __name__ == '__main__':
     print(f"score 1: {score}")
 
     score = 0
-    data2 = parse_data2(file_data)
-    for char in data2:
+    data = parse_data2(file_data)
+    for char in data:
         if ord(char) > 96: # a -> 97
             score += ord(char) - 96
         else:
