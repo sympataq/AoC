@@ -27,10 +27,35 @@ def isVisibleHorizontal(data, row , column) -> bool:
         return True
     return False                
 
-def lookHorizontal(data, row , column) -> int:
-    pass
+def lookNorth(data, row , column) -> int:
+    if  row == 0:
+        return 0
+    # look on north column from actual row position
+    for look in range(row-1,0,-1):
+        if data[look][column] > data[row][column]:
+            return row-look
+    return row
 
-def lookVertical(data, row , column) -> int:
+def lookSouth(data, row , column) -> int:
+    if  row == len(data)-1:
+        return 0
+    # look on south column from actual row position
+    for look in range(row+1,len(data)-1):
+        if data[look][column] > data[row][column]:
+            return look-row
+    return row
+
+def lookWest(data, row , column) -> int:
+    if  column == len(data[row])-1:
+        return 0
+    # look on west from actual column position
+    for look in range(column+1,len(data[row])):
+        print(f"{row}{column} c:{look}:{data[row][look]}")
+        if data[row][look] > data[row][column]:
+            return look-row
+    return len(data[row])-1-column
+    
+def lookEeast(data, row , column) -> int:
     pass
 
 def file_read(filename='input.txt'):
@@ -53,6 +78,8 @@ for row in range (len(file_data)):
         if isVisibleHorizontal(file_data, row, column) or \
            isVisibleVertical(file_data, row, column):
             visible += 1
-print(visible)
+# print(visible)
 
-print(lookHorizontal)
+# print (lookNorth(file_data,1 ,4))
+print (lookSouth(file_data,0 ,3))
+# print (lookWest(file_data,1 ,2))
