@@ -81,5 +81,5 @@ for row in range (len(file_data)):
 # print(visible)
 
 # print (lookNorth(file_data,1 ,4))
-print (lookSouth(file_data,0 ,3))
+# print (lookSouth(file_data,0 ,3))
 # print (lookWest(file_data,1 ,2))
