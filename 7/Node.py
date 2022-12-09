@@ -2,7 +2,7 @@
 
 class Node:
 
-    def __init__(self, name :str, parent=None):
+    def __init__(self, name: str, parent=None):
         self.parent = parent
         self.name = name
         self.dirs = []
@@ -20,13 +20,12 @@ class Node:
     def ls(self) -> str:
         ret = ""
         for dir in self.dirs:
-            gap = " "*(15-len(dir))
+            gap = " "*(15 - len(dir))
             ret += dir + gap + "<DIR>".rjust(10) + "\n"
-        for filename,sizeoffile in self.files.items():
-            gap = " "*(15-len(filename))
-            ret += f'{filename}'+ gap + f'{sizeoffile}'.rjust(10) +"\n"
+        for filename, sizeoffile in self.files.items():
+            gap = " "*(15 - len(filename))
+            ret += f'{filename}' + gap + f'{sizeoffile}'.rjust(10) + "\n"
         return ret
 
     def file_size(self) -> int:
         return sum(self.files.values())
-    
