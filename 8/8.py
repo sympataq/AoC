@@ -13,7 +13,6 @@ def isVisibleVertical(data, row , column) -> bool:
         return True
     if max(col[row+1:], default=0) < data[row][column]:
         return True
-
     return False                
 
 def isVisibleHorizontal(data, row , column) -> bool:
@@ -27,47 +26,58 @@ def isVisibleHorizontal(data, row , column) -> bool:
         return True
     return False                
 
-def lookNorth(data, row , column) -> int:
+def look_up(data, row , column) -> int:
     if  row == 0:
         return 0
-    # look on north column from actual row position
+    # look up on column from actual row position
     for look in range(row-1,0,-1):
-        if data[look][column] > data[row][column]:
+        if data[look][column] >= data[row][column]:
             return row-look
     return row
 
-def lookSouth(data, row , column) -> int:
+def look_down(data, row , column) -> int:
     if  row == len(data)-1:
         return 0
-    # look on south column from actual row position
-    for look in range(row+1,len(data)-1):
-        if data[look][column] > data[row][column]:
+    # look down on column from actual row position
+    for look in range(row+1, len(data)-1):
+        if data[look][column] >= data[row][column]:
             return look-row
-    return row
+    return len(data)-1-row
 
-def lookWest(data, row , column) -> int:
+def look_right(data, row , column) -> int:
     if  column == len(data[row])-1:
         return 0
-    # look on west from actual column position
-    for look in range(column+1,len(data[row])):
-        print(f"{row}{column} c:{look}:{data[row][look]}")
-        if data[row][look] > data[row][column]:
-            return look-row
+    # look right from actual column position
+    for look in range(column+1, len(data[row])):
+        if data[row][look] >= data[row][column]:
+            return look-column
     return len(data[row])-1-column
     
-def lookEeast(data, row , column) -> int:
-    pass
+def look_left(data, row , column) -> int:
+    if column == 0:
+        return 0
+    for look in range(column-1, 0, -1):
+        if data[row][look] >= data[row][column]:
+            return column - look
+    return column
+
+def look_all_direction(data, row, column):
+    return  look_down(data, row, column) * \
+            look_up(data, row, column) * \
+            look_left(data, row, column) * \
+            look_right(data, row, column)
+
 
 def file_read(filename='input.txt'):
-    file_data = []
+    filedata = []
     try:
         with open(filename) as f:
             for line in f:
                 clearline = line.rstrip()
-                file_data.append([int(i) for i in clearline])
+                filedata.append([int(i) for i in clearline])
     except FileNotFoundError:
         print("Wrong filename or path")
-    return file_data        
+    return filedata
 
 if __name__=='__main__':
     file_data = file_read("8/input.txt")
@@ -78,8 +88,14 @@ for row in range (len(file_data)):
         if isVisibleHorizontal(file_data, row, column) or \
            isVisibleVertical(file_data, row, column):
             visible += 1
-# print(visible)
+print(visible)
 
-# print (lookNorth(file_data,1 ,4))
-# print (lookSouth(file_data,0 ,3))
-# print (lookWest(file_data,1 ,2))
+max_score, actual_score = 0,0
+for row in range (len(file_data)):
+    for column in range (len(file_data[row])):
+            actual_score = look_all_direction(file_data, row, column)
+            if  actual_score > max_score:
+                max_score = actual_score
+print(max_score)
+                 
+
