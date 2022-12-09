@@ -6,9 +6,5 @@ class Tree
         self.root = root
 
     def traverse(self, root='root') -> str:
-        ret = f"{self.root.name}\n"
-        for dir in self.root:
-
-    
-            ret += 
+        pass
 # ├└──

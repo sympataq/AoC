@@ -9,8 +9,7 @@ class Node:
         self.files = {}
 
     def add_dir(self, name):
-        self.dirs.append(name)
-        
+        self.dirs.append(Node(name, self))
 
     def add_file(self, filename, size):
         self.files[filename] = size
@@ -28,6 +27,6 @@ class Node:
             ret += f'{filename}'+ gap + f'{sizeoffile}'.rjust(10) +"\n"
         return ret
 
-    def size(self) -> int:
+    def file_size(self) -> int:
         return sum(self.files.values())
     
