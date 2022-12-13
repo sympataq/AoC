@@ -1,21 +1,25 @@
 from Node import Node
+from Tree import Tree
 
+
+def file_read(filename):
+    file_data = []
+    with open(filename) as f:
+        for line in f:
+            file_data.append(line.rstrip().split())
+    return file_data
 
 if __name__ == '__main__':
-    prvy = Node("prvy")
-    prvy.add_dir("dir11")
-    prvy.add_dir("dir222222222")
-    prvy.add_dir("dir3")
-    prvy.add_file("file1", 23423)
-    prvy.add_file("file2222222", 3223423)
-    prvy.add_file("file3", 233)
-    prvy.add_file("file4", 1123423)
+    data = file_read("7/input.txt")
+    
+    t = Tree()
+    t.load_tree(data)
+    t.traverse(t.root)
+    # just for a show
+    for key, val in t.count.items():
+        print(f"{key}:{val}")
 
-    print(prvy)
-    print(prvy.ls())
-    print(prvy.size())
+    print(sum([x for x in t.count.values() if x < 100_000]))
+    
 
-    druhy = Node("druhy")
-    treti = Node("treti")
-    svrty = Node("svrty")
 
