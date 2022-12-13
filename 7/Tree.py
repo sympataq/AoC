@@ -2,8 +2,8 @@ from Node import Node
 
 from collections import deque
 
-class Tree:
 
+class Tree:
 
     def __init__(self):
         self.root = Node('/')
@@ -14,13 +14,12 @@ class Tree:
     def cmd_dir(self, cmd):
         # print (cmd        )
         if cmd:
-            if cmd == '/':               
+            if cmd == '/':
                 self.act_dir_node = self.root
             elif cmd == '..' and self.act_dir_node != self.root:
                 self.act_dir_node = self.act_dir_node.parent
-            else:            
+            else:
                 self.act_dir_node = self.act_dir_node.dirs[cmd]
-
 
     def load_tree(self, commands, num=0):
 
@@ -35,13 +34,12 @@ class Tree:
                 self.act_dir_node.add_dir(line[1])
             else:
                 self.act_dir_node.add_file(line[1], line[0])
-    
-    def traverse(self, act_node : Node ):
+
+    def traverse(self, act_node: Node):
         ''' Traverse whole tree and return result '''
         self.count.setdefault(self.pwd(act_node), act_node.get_size())
         for node in act_node.dirs.values():
             self.traverse(node)
-
 
     def pwd(self, def_node) -> str:
         ''' Print working directory or defined directory'''
