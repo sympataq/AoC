@@ -12,14 +12,19 @@ def file_read(filename):
 if __name__ == '__main__':
     data = file_read("7/input.txt")
     
+    # part 1
     t = Tree()
     t.load_tree(data)
     t.traverse(t.root)
+   
     # just for a show
     for key, val in t.count.items():
         print(f"{key}:{val}")
 
-    print(sum([x for x in t.count.values() if x < 100_000]))
+    print(f"Total sum of dirs < 100k : {sum([x for x in t.count.values() if x < 100_000])}")
     
+    # part 2
+    required = 30_000_000 - (70_000_000 - t.count['/'])
+    print(f"Looking for smallest dir > {required} :")
 
 
