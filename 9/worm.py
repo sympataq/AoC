@@ -59,12 +59,29 @@ class Worm:
 
         # and rest
         for body in range(1, len(self.body_positions)):
-            print(
-                f"body :{body} {self.body_positions[body-1]} {self.body_positions[body]}")
+            # print(f"body :{body} {self.body_positions[body-1]} {self.body_positions[body]}")
             if self.head_tail_distance(self.body_positions[body-1], self.body_positions[body]) >= 2:
                 # go to the same position where previous body part was 1 step ago
-                self.body_positions[body] = self.body_movements[body-1][-2]
+                self.body_positions[body] = self.find_jump(
+                    self.body_positions[body-1], self.body_positions[body])
                 self.body_movements[body].append(self.body_positions[body])
+
+    def find_jump(self, head, tail):
+        ''' Always jump to be at least on 1 axe same'''
+        head_x, head_y = head
+        tail_x, tail_y = tail
+
+        if head_x < tail_x:
+            tail_x -= 1
+        if head_x > tail_x:
+            tail_x += 1
+
+        if head_y < tail_y:
+            tail_y -= 1
+        if head_y > tail_y:
+            tail_y += 1
+
+        return (tail_x, tail_y)
 
     def movement_part1(self, movement, moves=0):
         ''' moves head and tail
@@ -105,7 +122,7 @@ class Worm:
             elif direction == 'D':
                 step = self.head_move_down
 
-            print(f'going to move : {movement[i]}')
+            # print(f'going to move : {movement[i]}')
             for j in range(distance):
                 step()  # head move
                 self.body_move()  # body move

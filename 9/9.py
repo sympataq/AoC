@@ -20,5 +20,5 @@ if __name__ == '__main__':
 
     # add 9 body pieces
     worm2 = Worm(9)
-    worm2.movement_part2(file_data, 7)
+    worm2.movement_part2(file_data)
     print(f'tail visited:{worm2.body_visited()}')
