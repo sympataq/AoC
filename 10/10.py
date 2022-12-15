@@ -1,3 +1,4 @@
+from CPU import Computer
 
 
 def read_file(filename):
@@ -13,4 +14,7 @@ def read_file(filename):
 
 if __name__ == '__main__':
     file_data = read_file("10/input.txt")
-    print(file_data)
+
+    c = Computer()
+    c.load_program(file_data)
+    print(c.run())
