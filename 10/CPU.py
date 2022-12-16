@@ -10,6 +10,7 @@ class Computer:
         self.boots = []
         self.SIGNAL_BOOSTS = [20, 60, 100, 140, 180, 220]
         self.INSTRUCTION_LENGTH = {'noop': 1, 'addx': 2}
+        self.crt = []
 
     def load_program(self, commands):
         self.commands = deque(commands)
@@ -34,20 +35,23 @@ class Computer:
 
         print(self.CPU)
 
+    def draw_sprite(self):
+        act_pixel = self.cycle % 40
+        delim = '' if act_pixel != 0 else '\n'
+        if act_pixel >= (self.register - 1) and act_pixel <= (self.register + 1):
+            self.crt += f'{delim}#'
+        else:
+            self.crt += f'{delim}.'
+
     def run(self):
         boosts = 0
         while self.commands:
-            # print(f"{len(self.commands)}")
-            # execute command
-
             # check signal boost
             if (self.cycle in self.SIGNAL_BOOSTS):
                 boosts += self.cycle * self.register
                 print(f"cycle:{self.cycle} reg:{self.register}")
-
+            # execute command
             self.execute_command(self.cycle)
-
+            self.draw_sprite()
             self.cycle += 1
-            # if self.cycle > 220:
-            #     break
         return boosts

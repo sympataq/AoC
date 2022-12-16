@@ -18,3 +18,5 @@ if __name__ == '__main__':
     c = Computer()
     c.load_program(file_data)
     print(c.run())
+    test = str(c.crt)
+    print(''.join(c.crt))
