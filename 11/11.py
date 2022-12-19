@@ -1,9 +1,12 @@
+from Monkey import Monkey
+from Game import Game
+
 
 def read_file(filename):
     file_data = []
     with open(filename) as f:
         for line in f:
-            line =
+            line = line.r
 
 
 if __name__ == '__main__':
